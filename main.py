@@ -1,18 +1,22 @@
-"""This is the main module that takes in a dataset and cleans it """
+"""
+Main function that runs the script, takes in a dataset
+and cleans it, and outputs the visualization 
+"""
 import sys
 import load_data
 import display_graph
 import pip
 import argparse
 
-def install(pkg):
+def install(package):
     """
-    :param pkg: the package that is to be installed
+    This function installs the required packages
+    param package: the package that needs to be installed
     """
     if hasattr(pip, "main"):
-        pip.main(["install", pkg])
+        pip.main(["install", package])
     else:
-        pip._internal.main(["install", pkg])
+        pip._internal.main(["install", package])
 
 if __name__ == '__main__':
     install("numpy==1.23.5")
@@ -27,9 +31,9 @@ if __name__ == '__main__':
 
     parser=argparse.ArgumentParser()
     parser.add_argument('first_path', help="TorontoWeather2022.csv")
-
     args=parser.parse_args()
-    df = load_data.load_df(args.first_path)
-    line_graph = display_graph.create_chart(df)
-    altair_viewer.show(line_graph)
 
+    original_df = load_data.load_df(args.first_path)
+    cleaned_df = load_data.clean_df(original_df)
+    line_graph = display_graph.create_chart(cleaned_df)
+    altair_viewer.show(line_graph)
