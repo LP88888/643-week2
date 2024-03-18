@@ -1,6 +1,6 @@
 """
 This module creates a line graph of Toronto's average
-max and min temperatures in degrees Celsius, in 2017 and 2022
+max and min temperatures in degrees Celsius, in 2022
 """
 import pandas as pd
 import altair as alt
@@ -13,7 +13,6 @@ def create_chart(df):
 
     """
 
-    # Generate a line plot in Altair showing the month and average mean temperatures
     base = alt.Chart(df).mark_line(point=True).encode(
         x=alt.X(
             "Month:O", 
@@ -26,12 +25,12 @@ def create_chart(df):
             axis=alt.Axis(tickSize=8, labelFontSize=11, labelFontWeight=500)
         ),
         color=alt.Color("variable:N", title="Legend"),
-        tooltip=["value:Q"], #info for the dots when user hovers there
+        tooltip=["value:Q"], 
     )
 
     # Add text labels, offset text by 25 pixels above each line so they are visible
     labels = base.mark_text(dy = -25).encode(  
-        text = alt.Text("value", format=".1f"), # Round temperature to nearest decimal place   
+        text = alt.Text("value", format=".1f"),    
     )
 
     # Combine and layer the line chart and text labels
